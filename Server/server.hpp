@@ -35,7 +35,7 @@ class Server
 		\pre 'name' is not null.
 		\post A new session i started with given name and the server starts waiting for clients.
 	*/
-	void startSession(char *name);
+	void startSession(const char *name);
 
 	private:
 	void startConnection(int fdConnection); /// \warning Possible memory leak

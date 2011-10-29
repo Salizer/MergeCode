@@ -1,4 +1,5 @@
 #include "server.hpp"
+#include <arpa/inet.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -22,7 +23,7 @@ Server::~Server()
 {
 	// Clean up
 }
-void Server::startSession(char *name)
+void Server::startSession(const char *name)
 {
 	sessCurrent = new Session(name);
 	
@@ -39,6 +40,10 @@ void Server::startConnection(int fdConnection)
 }
 void Server::initServer()
 {
+	fdServerSocket = socket(AF_INET, SOCK_STREAM, 0);
+	if(fdServerSocket == -1)
+		printErr("Socket init");
+	
 	memset(&addrSocket, 0, sizeof(struct sockaddr_in));
 	addrSocket.sin_family = AF_INET;
 	addrSocket.sin_port = htons(SERVER_PORT);
@@ -53,6 +58,7 @@ void Server::waitForClients()
 	struct sockaddr_in addrClient;
 	socklen_t lenAddr;
 	int fdClient;
+	char buffAddr[12];
 	
 	while(1)
 	{
@@ -61,6 +67,12 @@ void Server::waitForClients()
 		fdClient = accept(fdServerSocket, (struct sockaddr *) &addrClient, &lenAddr);
 		if(fdClient == -1)
 			printErr("Client connecting");
+		
+		// Print info
+		inet_ntop(AF_INET, (void *)&addrClient.sin_addr, buffAddr, 12);
+		printf("User connected from: %s\n", buffAddr);
+		
+		// Start connection
 		startConnection(fdClient);
 	}
 }

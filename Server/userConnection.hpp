@@ -15,10 +15,14 @@ class UserConnection
 {
 	private:
 	unsigned int id; // Used for tagging segments
+	int fdClient;
 	Session *sessServer;
 
 	public:
 	UserConnection(int fd, Session *sess);
 	~UserConnection();
+	
+	private:
+	bool authUser();
 };
 #endif

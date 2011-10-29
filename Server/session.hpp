@@ -1,5 +1,7 @@
 #ifndef SESSION_HPP
 #define SESSION_HPP
+#include <string>
+
 /** \file session.hpp */
 /**
 	\brief Server session class.
@@ -13,12 +15,12 @@
 class Session
 {
 	private:
-	char *name;
+	std::string name;
 	//struct User *userList; // Maybe linked list or vector /// \todo Find data structure
 	// ? text;	// Maybe linked list /// \todo Find data structure
 
 	public:
-	Session(char *name);
+	Session(const char *name);
 	~Session();
 };
 #endif
