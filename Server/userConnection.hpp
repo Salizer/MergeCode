@@ -15,9 +15,10 @@ class UserConnection
 {
 	private:
 	unsigned int id; // Used for tagging segments
+	Session *sessServer;
 
 	public:
-	UserConnection();
+	UserConnection(int fd, Session *sess);
 	~UserConnection();
 };
 #endif

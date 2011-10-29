@@ -18,7 +18,7 @@ class Session
 	// ? text;	// Maybe linked list /// \todo Find data structure
 
 	public:
-	Session();
+	Session(char *name);
 	~Session();
 };
 #endif
