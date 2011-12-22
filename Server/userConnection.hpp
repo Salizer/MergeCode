@@ -2,6 +2,9 @@
 #define USERCONNECTION_HPP
 /** \file userConnection.hpp */
 #include "session.hpp"
+#include <pthread.h>
+
+#define MAX_PACKAGE_SIZE 1024 // Should be used for maximum when sending packages.
 
 /**
 	\brief Class for the user connection.
@@ -13,16 +16,20 @@
 */
 class UserConnection
 {
-	private:
-	unsigned int id; // Used for tagging segments
-	int fdClient;
-	Session *sessServer;
-
 	public:
 	UserConnection(int fd, Session *sess);
 	~UserConnection();
 	
+	/** \brief Read from stream.
+	
+	*/
+	ssize_t readFromStream(char buffer[]);
+	
 	private:
 	bool authUser();
+	unsigned int id; // Used for tagging segments
+	int fdClient;
+	Session *sessServer;
+	pthread_t tIDConnection;
 };
 #endif

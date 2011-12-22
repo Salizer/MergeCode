@@ -51,6 +51,8 @@ void Server::initServer()
 	
 	if((bind(fdServerSocket, (struct sockaddr*) &addrSocket, sizeof(struct sockaddr_in))) == -1)
 		printErr("Binding");
+		
+	printf("Server initialized on port %d\n", SERVER_PORT);
 }
 void Server::waitForClients()
 {

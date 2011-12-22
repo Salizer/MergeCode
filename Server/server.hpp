@@ -38,7 +38,7 @@ class Server
 	void startSession(const char *name);
 
 	private:
-	void startConnection(int fdConnection); /// \warning Possible memory leak
+	void startConnection(int fdConnection); /// \warning Possible memory leak.(Now thread cleans it)
 	void initServer(); // To set up the server for use
 	void waitForClients();
 };
